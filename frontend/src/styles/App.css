@@ -1,0 +1,163 @@
+/* General Styling */
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+}
+
+.App {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Login */
+.login-container {
+  text-align: center;
+}
+
+.login-container form {
+  margin-top: 20px;
+}
+
+.login-container input {
+  padding: 10px;
+  width: 80%;
+  max-width: 300px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.login-container button {
+  padding: 10px 20px;
+  border: none;
+  background-color: #0077ff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-container button:hover {
+  background-color: #005fd1;
+}
+
+/* Task Form */
+.task-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.task-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.task-form button {
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task-form button:hover {
+  background-color: #218838;
+}
+
+/* Task List */
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* Task Item */
+.task-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+}
+
+.task-item.completed {
+  background-color: #dff0d8;
+  text-decoration: line-through;
+}
+
+.task-item h3 {
+  margin: 0 0 5px;
+}
+
+.task-item p {
+  margin: 5px 0;
+}
+
+.task-item .actions {
+  margin-top: 10px;
+}
+
+.task-item .actions button {
+  margin-right: 8px;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.task-item .actions button:nth-child(1) {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.task-item .actions button:nth-child(2) {
+  background-color: #ffc107;
+  color: white;
+}
+
+.task-item .actions button:nth-child(3) {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Task Filter */
+.task-filter {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.task-filter button {
+  flex: 1;
+  padding: 10px;
+  margin: 0 5px;
+  border: none;
+  background-color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.task-filter button.active {
+  background-color: #0077ff;
+  color: white;
+}
+
+@media (max-width: 500px) {
+  .App {
+    margin: 20px;
+  }
+
+  .task-filter {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
