@@ -88,9 +88,7 @@ Personal Task Tracker helps users:
 
 | Dashboard (Light Mode) | Dashboard (Dark Mode) |
 |------------------------|------------------------|
-| ![light](./screenshots/light-mode.png) | ![dark](./screenshots/dark-mode.png) |
-
-> 💡 Add screenshots in `frontend/public/screenshots/` and update image paths above if needed.
+| ![light](frontend/public/screenshots/light-mode.png) | ![dark](frontend/public/screenshots/dark-mode.png) |
 
 ---
 
