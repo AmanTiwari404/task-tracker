@@ -36,3 +36,77 @@ Personal Task Tracker helps users:
 1. Clone the repository:
    ```bash
    git clone https://github.com/AmanTiwari404/task-tracker.git
+   ```
+
+2. Navigate to the frontend directory:
+   ```bash
+   cd frontend
+   ```
+
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+4. Start the frontend development server:
+   ```bash
+   npm start
+   ```
+
+5. Make sure the backend is running on:
+   ```
+   http://localhost:5000
+   ```
+
+6. Open the frontend in your browser:  
+   [http://localhost:3000](http://localhost:3000)
+
+---
+
+## 🧰 Technologies Used
+
+- React.js
+- Express.js
+- Node.js
+- MongoDB Atlas
+- Framer Motion (animations)
+- Vercel (for frontend hosting)
+- Render (for backend hosting)
+
+---
+
+## 🌐 Live Demo
+
+**Frontend Live URL**  
+🔗 [https://task-tracker-blond-two.vercel.app/](https://task-tracker-blond-two.vercel.app/)
+
+> Backend must also be deployed on [Render](https://render.com) for full functionality
+
+---
+
+## 🖼️ Screenshots
+
+| Dashboard (Light Mode) | Dashboard (Dark Mode) |
+|------------------------|------------------------|
+| ![light](./screenshots/light-mode.png) | ![dark](./screenshots/dark-mode.png) |
+
+> 💡 Add screenshots in `frontend/public/screenshots/` and update image paths above if needed.
+
+---
+
+## ✅ Deployment Notes
+
+- Deployed frontend via **Vercel**
+- Backend deployed on **Render**
+- `.env` contains:
+  ```env
+  REACT_APP_API_BASE=https://your-backend.onrender.com/api/tasks
+  ```
+
+---
+
+
+## 📃 License
+
+MIT License
+
