@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:5000/api/tasks'; // Replace with your deployed backend URL
+const API_BASE = 'https://task-tracker-3hvh.onrender.com'; 
 
 export async function getTasks(username) {
   const res = await fetch(`${API_BASE}/${username}`);
