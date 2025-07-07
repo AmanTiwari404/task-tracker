@@ -1,4 +1,4 @@
-const API_BASE = 'https://task-tracker-3hvh.onrender.com'; 
+const API_BASE = 'https://task-tracker-3hvh.onrender.com/api/tasks'; 
 
 export async function getTasks(username) {
   const res = await fetch(`${API_BASE}/${username}`);
