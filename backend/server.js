@@ -6,23 +6,45 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://task-tracker-blond-two.vercel.app'
+];
+
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+}));
+
+
 app.use(express.json());
 
-// MongoDB Connection
+
 mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
-.then(() => console.log('MongoDB connected'))
-.catch((err) => console.error('MongoDB connection error:', err));
+.then(() => console.log('✅ MongoDB connected'))
+.catch((err) => console.error('❌ MongoDB connection error:', err));
 
-// Task Model
+//Models & routes
 const Task = require('./models/Task');
+const authRoutes = require('./routes/auth');
+const verifyToken = require('./middleware/auth');
+
+//Auth routes
+app.use('/api/auth', authRoutes);
 
 
-app.get('/api/tasks/:username', async (req, res) => {
+app.get('/api/tasks/:username', verifyToken, async (req, res) => {
   try {
     const tasks = await Task.find({ username: req.params.username }).sort({ createdAt: -1 });
     res.json(tasks);
@@ -31,7 +53,8 @@ app.get('/api/tasks/:username', async (req, res) => {
   }
 });
 
-app.post('/api/tasks', async (req, res) => {
+//Create a new task
+app.post('/api/tasks', verifyToken, async (req, res) => {
   try {
     const { username, title, description, priority, category, dueDate } = req.body;
 
@@ -51,8 +74,8 @@ app.post('/api/tasks', async (req, res) => {
   }
 });
 
-// Update a task
-app.put('/api/tasks/:id', async (req, res) => {
+//Update a task
+app.put('/api/tasks/:id', verifyToken, async (req, res) => {
   try {
     const updated = await Task.findByIdAndUpdate(req.params.id, req.body, { new: true });
     res.json(updated);
@@ -61,8 +84,8 @@ app.put('/api/tasks/:id', async (req, res) => {
   }
 });
 
-// Delete a task
-app.delete('/api/tasks/:id', async (req, res) => {
+//Delete a task
+app.delete('/api/tasks/:id', verifyToken, async (req, res) => {
   try {
     await Task.findByIdAndDelete(req.params.id);
     res.status(204).end();
@@ -73,5 +96,5 @@ app.delete('/api/tasks/:id', async (req, res) => {
 
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });

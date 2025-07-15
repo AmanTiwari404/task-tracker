@@ -1,9 +1,12 @@
-const API_BASE = 'https://task-tracker-3hvh.onrender.com/api/tasks'; 
+const API_BASE = process.env.REACT_APP_API_BASE 
 
-export async function getTasks(username) {
-  const res = await fetch(`${API_BASE}/${username}`);
-  return res.json();
-}
+export const getTasks = async (username) => {
+  const token = localStorage.getItem('token');
+  const res = await fetch(`${API_BASE}/${username}`, {
+    headers: { Authorization: token }
+  });
+  return await res.json();
+};
 
 export async function addTask(task) {
   const res = await fetch(API_BASE, {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Login from './components/Login';
+import AuthForm from './components/AuthForm';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import TaskFilter from './components/TaskFilter';
@@ -14,9 +14,10 @@ function App() {
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [priorityFilter, setPriorityFilter] = useState('All');
   const [dueFilter, setDueFilter] = useState('All');
+  const [authMode, setAuthMode] = useState('login');
 
   useEffect(() => {
-    if (username) getTasks(username).then(setTasks);
+    if (username) getTasks(username).then(setTasks).catch(console.error);
   }, [username]);
 
   const handleLogin = (name) => {
@@ -26,6 +27,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('username');
+    localStorage.removeItem('token');
     setUsername('');
   };
 
@@ -71,7 +73,6 @@ function App() {
       (filter === 'Pending' && !task.completed);
 
     const matchesSearch = task.title.toLowerCase().includes(searchTerm.toLowerCase());
-
     const matchesCategory = categoryFilter === 'All' || task.category === categoryFilter;
     const matchesPriority = priorityFilter === 'All' || task.priority === priorityFilter;
 
@@ -83,7 +84,26 @@ function App() {
     return matchesStatus && matchesSearch && matchesCategory && matchesPriority && matchesDue;
   });
 
-  if (!username) return <Login onLogin={handleLogin} />;
+  if (!username) {
+    return (
+      <div>
+        <AuthForm onAuth={handleLogin} mode={authMode} />
+        <div style={{ textAlign: 'center', marginTop: 10 }}>
+          {authMode === 'login' ? (
+            <p>
+              Don't have an account?{' '}
+              <button onClick={() => setAuthMode('register')}>Register here</button>
+            </p>
+          ) : (
+            <p>
+              Already have an account?{' '}
+              <button onClick={() => setAuthMode('login')}>Login here</button>
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={`App ${darkMode ? 'dark' : ''}`}>
