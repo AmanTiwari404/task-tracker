@@ -120,6 +120,7 @@ function App() {
 
       <input
         type="text"
+        className="search-bar"
         placeholder="Search tasks..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
