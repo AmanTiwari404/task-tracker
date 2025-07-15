@@ -11,16 +11,17 @@ export const getTasks = async (username) => {
   return await res.json();
 };
 
-// Add a task
+// Add a task 
 export async function addTask(task) {
   const token = localStorage.getItem('token');
+  const username = localStorage.getItem('username'); 
   const res = await fetch(API_BASE, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': token
     },
-    body: JSON.stringify(task)
+    body: JSON.stringify({ ...task, username }) 
   });
   return await res.json();
 }

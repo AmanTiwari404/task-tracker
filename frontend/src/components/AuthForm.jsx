@@ -30,7 +30,8 @@ const AuthForm = ({ onAuth, mode = 'login' }) => {
 
       if (mode === 'login') {
         localStorage.setItem('token', data.token);
-        localStorage.setItem('username', data.name); 
+        localStorage.setItem('username', data.name);     
+        localStorage.setItem('displayName', data.name); 
         onAuth(data.name);
       } else {
         setMessage('✅ Registration successful. You can now log in.');

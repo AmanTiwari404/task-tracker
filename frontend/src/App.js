@@ -7,6 +7,7 @@ import { getTasks, addTask, updateTask, deleteTask } from './utils/api';
 
 function App() {
   const [username, setUsername] = useState(localStorage.getItem('username') || '');
+  const [displayName, setDisplayName] = useState(localStorage.getItem('displayName') || '');
   const [tasks, setTasks] = useState([]);
   const [filter, setFilter] = useState('All');
   const [searchTerm, setSearchTerm] = useState('');
@@ -16,19 +17,27 @@ function App() {
   const [dueFilter, setDueFilter] = useState('All');
   const [authMode, setAuthMode] = useState('login');
 
+  // Fetch tasks when logged in
   useEffect(() => {
-    if (username) getTasks(username).then(setTasks).catch(console.error);
+    if (username) {
+      getTasks(username).then(setTasks).catch(console.error);
+    }
   }, [username]);
 
+  // Handle successful login
   const handleLogin = (name) => {
     setUsername(name);
-    localStorage.setItem('username', name);
+    setDisplayName(name);
+    localStorage.setItem('username', name);        
+    localStorage.setItem('displayName', name);    
   };
 
   const handleLogout = () => {
     localStorage.removeItem('username');
     localStorage.removeItem('token');
+    localStorage.removeItem('displayName');
     setUsername('');
+    setDisplayName('');
   };
 
   const toggleDarkMode = () => {
@@ -39,7 +48,7 @@ function App() {
   };
 
   const handleAddTask = async (task) => {
-    const newTask = await addTask({ ...task, username });
+    const newTask = await addTask({ ...task }); 
     setTasks((prev) => [...prev, newTask]);
   };
 
@@ -108,7 +117,7 @@ function App() {
   return (
     <div className={`App ${darkMode ? 'dark' : ''}`}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <h1>{username}'s Task Tracker</h1>
+        <h1>{displayName || username}'s Task Tracker</h1>
         <div style={{ display: 'flex', gap: '10px' }}>
           <button onClick={toggleDarkMode}>{darkMode ? '☀️ Light Mode' : '🌙 Dark Mode'}</button>
           <button onClick={handleLogout}>Logout</button>
