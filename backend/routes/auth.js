@@ -31,8 +31,8 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
-
     const user = await User.findOne({ email });
+
     if (!user) return res.status(400).json({ message: 'Invalid credentials' });
 
     const isMatch = await bcrypt.compare(password, user.password);
@@ -40,10 +40,12 @@ router.post('/login', async (req, res) => {
 
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '7d' });
 
-    res.json({ token, name: user.name });
+    res.json({ token, name: user.name }); 
   } catch (err) {
+    console.error("Login error:", err); 
     res.status(500).json({ error: err.message });
   }
 });
+
 
 module.exports = router;
