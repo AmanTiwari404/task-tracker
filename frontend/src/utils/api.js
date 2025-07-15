@@ -1,33 +1,51 @@
-const API_BASE = process.env.REACT_APP_API_BASE 
+const API_BASE = process.env.REACT_APP_API_BASE;
 
+// Get all tasks for a user
 export const getTasks = async (username) => {
   const token = localStorage.getItem('token');
   const res = await fetch(`${API_BASE}/${username}`, {
-    headers: { Authorization: token }
+    headers: {
+      'Authorization': token
+    }
   });
   return await res.json();
 };
 
+// Add a task
 export async function addTask(task) {
+  const token = localStorage.getItem('token');
   const res = await fetch(API_BASE, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    },
     body: JSON.stringify(task)
   });
-  return res.json();
+  return await res.json();
 }
 
+// Update a task
 export async function updateTask(id, updates) {
+  const token = localStorage.getItem('token');
   const res = await fetch(`${API_BASE}/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': token
+    },
     body: JSON.stringify(updates)
   });
-  return res.json();
+  return await res.json();
 }
 
+// Delete a task
 export async function deleteTask(id) {
+  const token = localStorage.getItem('token');
   await fetch(`${API_BASE}/${id}`, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      'Authorization': token
+    }
   });
 }
